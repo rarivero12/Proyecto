@@ -42,10 +42,10 @@ public class logico {
        arrayResult = new ArrayList();
        elMejor=0;
        acumDemanda= new ArrayList();
-               acumEspera=new ArrayList();
-               acumEntrega=new ArrayList();
-               
-               tablaElmejor= new ArrayList();
+       acumEspera=new ArrayList();
+       acumEntrega=new ArrayList();
+       tablaElmejor= new ArrayList();
+       
        //Recibo toda la informacion     
        this.arrayDem=arrayDem;
        this.arrayPD=proDem;
@@ -190,7 +190,7 @@ public class logico {
         
        for(int dia=1;dia<=annio;dia++){//Aqui hace la logica de una tabla 
      
-           
+        //Para cada dia..
            if(tiempoEntrega==0){ //Reviso si llego una entrega si llegosumo la Q
                inv = inv + q;
                tiempoEntrega=-1;
@@ -223,14 +223,14 @@ public class logico {
            
           
         
-               //Para cada dia..
+           // Calculo la demanda
            rn=(int)(rnd.nextDouble() * 100);
           
            demanda=numAleatorio(rn  ,arrayDem,acumDemanda);
-         
+           // Inventario Final
            invFinal=inv-demanda;
            
-           
+           // Veo si tengo faltante o no
            if(invFinal<0){
                auxFaltante=demanda-inv;
                invFinal=0;
@@ -252,12 +252,12 @@ public class logico {
                faltante.add(auxFaltante);
                tiempoEspera.add(-2);
            }
-      
+          // inventario promedio
            invPromedio=(invFinal+inv)/2;
-         
+          // La suma del inventario promedio diario
            invPDiario=invPDiario+invPromedio;
            
-           
+           // Veo si puedo hacer un pedido
            if(tiempoEntrega<0){
                if( invFinal<=r ){
               rn2=(int)(rnd.nextDouble() * 100);
@@ -274,7 +274,7 @@ public class logico {
                 tiempoEntrega--; 
            }
            
-           
+          // Guardo los datos
            dias.add(dia);
            dias.add(inv);
            dias.add(rn);
@@ -289,7 +289,8 @@ public class logico {
            dias.add(auxtes);
            tabla.add(dias);
            dias= new ArrayList();
-         inv = invFinal;
+         // Calculo el inventario del nuevo dia
+           inv = invFinal;
          //Le resto 1 a los tiempos de espera
          for(int t=0;t<(tiempoEspera.size()-1);t++){
              auxQ=tiempoEspera.get(t);
@@ -299,13 +300,14 @@ public class logico {
          
          }
          
-       }
+       } // Fin del for de 365
       
+         // Calculo los costos
           costoOrden=orden*cOrden;
           costoInventario= (invPDiario*(cInv/365));
           costoTotal=costoInventario+costoOrden+costoFaltante;
        
-           //Cuando se termine
+           //Guardo los resultados
            resultados.add(i);
            resultados.add(j);
            resultados.add(costoInventario);
@@ -315,10 +317,11 @@ public class logico {
            arrayResult.add(resultados);
            contResultados++;
            
+           // Esto es para poder hacer la comparacion la primera vez
            if(contResultados==1){
                tablaElmejor=tabla;
            }
-           
+           // Comparacion a ver si es mejor que el mejor
             if( costoTotal <  Double.valueOf( (arrayResult.get(elMejor).get(5).toString()) )  ){
                elMejor=contResultados;
                tablaElmejor=tabla;

@@ -22,6 +22,7 @@ import javax.swing.JFileChooser;
  * @author Rafael
  */
 public class principal extends javax.swing.JFrame {
+    
 logico log;
 ArrayList<Integer> arrayDem,proDem,diasEsp,probaEspe,diasEntregas,probEntregas;
 ArrayList<Double> costos ;
@@ -37,6 +38,7 @@ JTable tablaMejor,tablaRes;
 
     
     public void leerTodo() throws FileNotFoundException, IOException{
+        
         ArrayList<String> cad;
         String sCadena;
         cad= new ArrayList();
@@ -45,7 +47,6 @@ JTable tablaMejor,tablaRes;
         BufferedReader bf = new BufferedReader(fr);
         
         while ((sCadena = bf.readLine())!=null) {
-           // System.out.println(sCadena);
             cad.add(sCadena);
         }
         
@@ -153,9 +154,10 @@ JTable tablaMejor,tablaRes;
     }
     
     public void llenarTablas(){
+        
      String[] columnNames = {"Dia", "Inv Ini.", "No. Aleatorio",
- "Demanda", "Inv Final","inv Promedio", "Faltante", "No. Orden",
- "No. Aleatorio", "Tiempo Entrega","No. Aleatorio", "Tiempo Espera"};
+      "Demanda", "Inv Final","inv Promedio", "Faltante", "No. Orden",
+      "No. Aleatorio", "Tiempo Entrega","No. Aleatorio", "Tiempo Espera"};
      
      String[] columnNames2 = {"Q", "R", "Costo Inventario","Costo Orden",
          "Costo Faltante","Costo Total"};
@@ -188,19 +190,18 @@ JTable tablaMejor,tablaRes;
       
 
       jScrollPane2.setViewportView(tablaRes);
-     jScrollPane1.setViewportView(tablaMejor);
+      jScrollPane1.setViewportView(tablaMejor);
      
-    jLabel3.setText(log.getMejorQ());
-    jLabel9.setText(log.getMejorR());
-    jLabel10.setText(log.getMejorCostoInventario());
-    jLabel11.setText(log.getMejorCostoOrden());
-    jLabel12.setText(log.getMejorCostoFaltante());
-    jLabel13.setText(log.getMejorCosto());
-    
-     
+      jLabel3.setText(log.getMejorQ());
+      jLabel9.setText(log.getMejorR());
+      jLabel10.setText(log.getMejorCostoInventario());
+      jLabel11.setText(log.getMejorCostoOrden());
+      jLabel12.setText(log.getMejorCostoFaltante());
+      jLabel13.setText(log.getMejorCosto());
     }
     
          public boolean validar( ){ //Funcion que ve si los datos ingresados son los correctos
+             
              int aux1=0;
              for(int i=0;i<proDem.size();i++){
                  aux1=aux1+proDem.get(i);
@@ -229,8 +230,6 @@ JTable tablaMejor,tablaRes;
              if(diasEntregas.size()!=probEntregas.size()){
                  return false;
              } 
-           
-                  
              return true;
          }
     /**
@@ -409,23 +408,24 @@ JTable tablaMejor,tablaRes;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     try {
-        
         leerTodo();
         
     } catch (IOException ex) {
         Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
     }
-    llenarTablas();
+        llenarTablas();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         JFileChooser chooser = new JFileChooser();
         int returnVal = chooser.showOpenDialog(this);
+        
      if(returnVal == JFileChooser.APPROVE_OPTION) {
        System.out.println("You chose to open this file: " +
            chooser.getSelectedFile().getName());
        jLabel16.setText( chooser.getSelectedFile().getName());
     }
+     
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
