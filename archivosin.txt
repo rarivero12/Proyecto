@@ -1,0 +1,9 @@
+Demanda diaria - 25,26,27,28,29,30,31,35,33,34 - .02,.04,.06,.12,.2,.24,.15,.10,.05,.02
+Tiempo de entrega - 1,2,3,4 - .2,.3,.25,.25
+Tiempo de espera del cliente - 0,1,2,3,4 - .4,.2,.15,.15,.1
+Costo de inventario - 52
+Costo de ordenar - 100
+Costo de faltante con espera de cliente - 20
+Costo de faltante sin espera del cliente - 50
+Inventario inicial - 50
+Dias de Simulacion - 365
