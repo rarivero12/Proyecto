@@ -72,7 +72,6 @@ public class logico {
         calcularQyR(); // Calculo q y r
         funcionAcumulada(); // Calculo el acumulado de todas las probabilidades
         empezar(); // Empiezo la simulacion
-     
         
    }
    
@@ -315,7 +314,9 @@ public class logico {
            arrayResult.add(resultados);
            contResultados++;
            
-           
+           if(contResultados==1){
+               tablaElmejor=tabla;
+           }
            
             if( costoTotal <  Double.valueOf( (arrayResult.get(elMejor).get(5).toString()) )  ){
                elMejor=contResultados;
