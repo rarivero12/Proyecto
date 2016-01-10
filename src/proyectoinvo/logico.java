@@ -29,7 +29,7 @@ public class logico {
     ArrayList<ArrayList<Integer>> tablaElmejor;
    
     int contResultados,elMejor;  // Cuantos resultados tuve y cual es el mejor
-    int annio=365; // Año por el cual nos guiaremos
+    int annio; // Año por el cual nos guiaremos
   
    //Costructor de prueba
     public logico(int w){
@@ -37,7 +37,7 @@ public class logico {
          invIni=w;
     }
    //Constructor 
-   public logico(ArrayList<Integer> arrayDem, ArrayList<Integer> proDem, ArrayList<Integer> diasEsp, ArrayList<Integer> probaEspe, ArrayList<Integer> diasEntregas, ArrayList<Integer> probEntregas, ArrayList<Double> costos) {
+   public logico(ArrayList<Integer> arrayDem, ArrayList<Integer> proDem, ArrayList<Integer> diasEsp, ArrayList<Integer> probaEspe, ArrayList<Integer> diasEntregas, ArrayList<Integer> probEntregas, ArrayList<Double> costos, int dias) {
       
        arrayResult = new ArrayList();
        elMejor=0;
@@ -61,7 +61,7 @@ public class logico {
         cOrden= arrayCostos.get(2);
         FcE=arrayCostos.get(3); 
         FsE=arrayCostos.get(4);
-        
+        annio=dias;
         
         menor=calMenor(arrayDem);
         mayor=calMayor(arrayDem);
@@ -113,8 +113,8 @@ public class logico {
    public void calcularQyR(){
        
        //Se calcula las q
-       Double qMenoraux=Math.sqrt(  ((2*cOrden*menor*annio*(cInv+FsE))/(cInv*FsE))  );
-       Double qMayoraux=Math.sqrt(  ((2*cOrden*mayor*annio*(cInv+FcE))/(cInv*FcE))  );
+       Double qMenoraux=Math.sqrt(  ((2*cOrden*menor*365*(cInv+FsE))/(cInv*FsE))  );
+       Double qMayoraux=Math.sqrt(  ((2*cOrden*mayor*365*(cInv+FcE))/(cInv*FcE))  );
        // Obtengo el valor entero
        qMenor=qMenoraux.intValue();
        qMayor=qMayoraux.intValue(); 

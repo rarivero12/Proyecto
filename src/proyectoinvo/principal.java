@@ -27,7 +27,7 @@ logico log;
 ArrayList<Integer> arrayDem,proDem,diasEsp,probaEspe,diasEntregas,probEntregas;
 ArrayList<Double> costos ;
 JTable tablaMejor,tablaRes;
-
+int diasSimulacion;
     /**
      * Creates new form principal
      */
@@ -57,15 +57,16 @@ JTable tablaMejor,tablaRes;
         costos.add(Double.valueOf(cad.get(1)));
         costos.add(Double.valueOf(cad.get(2)));
         costos.add(Double.valueOf(cad.get(3)));
-       
+        
+       diasSimulacion=Integer.valueOf(cad.get(5));
         
       //Obtengo las cadenas ingresadas en los textfield  
-      String dem=cad.get(5);
-      String probDem=cad.get(6);
-      String diasEntre=cad.get(7);
-      String probDiasEntrega=cad.get(8);
-      String DiasEsper=cad.get(9);
-      String ProbDiasEspera=cad.get(10);
+      String dem=cad.get(6);
+      String probDem=cad.get(7);
+      String diasEntre=cad.get(8);
+      String probDiasEntrega=cad.get(9);
+      String DiasEsper=cad.get(10);
+      String ProbDiasEspera=cad.get(11);
       
       
       //Declaro los arreglos para guardar la informacion
@@ -144,7 +145,7 @@ JTable tablaMejor,tablaRes;
       }
        
          if(validar()){
-             log=new logico(arrayDem,proDem,diasEsp,probaEspe,diasEntregas,probEntregas,costos); 
+             log=new logico(arrayDem,proDem,diasEsp,probaEspe,diasEntregas,probEntregas,costos,diasSimulacion); 
           }else{
               
           Logger.getLogger(principal.class.getName()).log(Level.SEVERE, "El archivo no esta bien escrito");
@@ -169,9 +170,9 @@ JTable tablaMejor,tablaRes;
      Integer tabla[][];
      
      tabla2=new Object[aux2.size()][6];
-     tabla=new Integer[366][12];
+     tabla=new Integer[diasSimulacion][12];
      
-     for(int i=0;i<365;i++){
+     for(int i=0;i<diasSimulacion;i++){
          for(int j=0;j<12;j++){
              tabla[i][j]=aux.get(i).get(j);
          }
