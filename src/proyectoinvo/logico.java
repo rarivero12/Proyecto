@@ -196,11 +196,11 @@ public class logico {
                tiempoEntrega=-1;
            }
           
-           if(inv>0){ //Si el inventario es mayor que 0 veo si puedo satisfacer demandas en espera
-               for(int n=0;n<tiempoEspera.size();n++){
-                    
+           //Veo si puedo satisfacer demandas en espera
+               for(int n=0;n<tiempoEspera.size();n++){          
                 aux2 = tiempoEspera.get(n);
                 aux3 = faltante.get(n);
+                if(inv>0){ 
                   if(aux2>=0){// Hay una espera q se puede satisfacer
                       if(inv>=aux3){// se satisface completa
                           costoFaltante=costoFaltante+aux3*FcE;
@@ -214,12 +214,13 @@ public class logico {
                       }
                       
                   }
+                }
                    if(aux2==-1){//Reviso si a alguno se le agoto el tiempo de espera
                      costoFaltante=costoFaltante+aux3*FsE;
                      tiempoEspera.set(n, -2);
                   }
                }
-           }
+           
           
         
                //Para cada dia..
