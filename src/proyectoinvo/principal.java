@@ -44,7 +44,7 @@ JTable tablaMejor,tablaRes;
         BufferedReader bf = new BufferedReader(fr);
         
         while ((sCadena = bf.readLine())!=null) {
-            System.out.println(sCadena);
+           // System.out.println(sCadena);
             cad.add(sCadena);
         }
         
@@ -146,38 +146,38 @@ JTable tablaMejor,tablaRes;
           //System.out.print(arrayDem.get(i));
           //System.out.print(" ");
      }
-      System.out.println(" ");
+      //System.out.println(" ");
       for(int i=0;i<proDem.size();i++){
          // System.out.print(proDem.get(i));
           //System.out.print(" ");
      }
-      System.out.println(" ");
+      //System.out.println(" ");
          for(int i=0;i<diasEsp.size();i++){
          // System.out.print(diasEsp.get(i));
           //System.out.print(" ");
      }
-      System.out.println(" ");
+      //System.out.println(" ");
          for(int i=0;i<probaEspe.size();i++){
           //System.out.print(probaEspe.get(i));
           //System.out.print(" ");
      }
-      System.out.println(" ");
+     // System.out.println(" ");
          for(int i=0;i<diasEntregas.size();i++){
           //System.out.print(diasEntregas.get(i));
           //System.out.print(" ");
      }
-      System.out.println(" ");
+      //System.out.println(" ");
          for(int i=0;i<probEntregas.size();i++){
           //System.out.print(probEntregas.get(i));
           //System.out.print(" ");
      }
-      System.out.println(" ");
+      //System.out.println(" ");
       
            for(int i=0;i<costos.size();i++){
           //System.out.print(costos.get(i));
          // System.out.print(" ");
      }
-      System.out.println(" ");
+      //System.out.println(" ");
       
          if(validar()){
              log=new logico(arrayDem,proDem,diasEsp,probaEspe,diasEntregas,probEntregas,costos); 
