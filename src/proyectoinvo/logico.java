@@ -40,7 +40,7 @@ public class logico {
    public logico(ArrayList<Integer> arrayDem, ArrayList<Integer> proDem, ArrayList<Integer> diasEsp, ArrayList<Integer> probaEspe, ArrayList<Integer> diasEntregas, ArrayList<Integer> probEntregas, ArrayList<Double> costos) {
       
        arrayResult = new ArrayList();
-       
+       elMejor=0;
        acumDemanda= new ArrayList();
                acumEspera=new ArrayList();
                acumEntrega=new ArrayList();

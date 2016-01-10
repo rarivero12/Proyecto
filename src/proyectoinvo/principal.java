@@ -142,44 +142,6 @@ JTable tablaMejor,tablaRes;
           }     
       }
        
-
-     for(int i=0;i<arrayDem.size();i++){
-          //System.out.print(arrayDem.get(i));
-          //System.out.print(" ");
-     }
-      //System.out.println(" ");
-      for(int i=0;i<proDem.size();i++){
-         // System.out.print(proDem.get(i));
-          //System.out.print(" ");
-     }
-      //System.out.println(" ");
-         for(int i=0;i<diasEsp.size();i++){
-         // System.out.print(diasEsp.get(i));
-          //System.out.print(" ");
-     }
-      //System.out.println(" ");
-         for(int i=0;i<probaEspe.size();i++){
-          //System.out.print(probaEspe.get(i));
-          //System.out.print(" ");
-     }
-     // System.out.println(" ");
-         for(int i=0;i<diasEntregas.size();i++){
-          //System.out.print(diasEntregas.get(i));
-          //System.out.print(" ");
-     }
-      //System.out.println(" ");
-         for(int i=0;i<probEntregas.size();i++){
-          //System.out.print(probEntregas.get(i));
-          //System.out.print(" ");
-     }
-      //System.out.println(" ");
-      
-           for(int i=0;i<costos.size();i++){
-          //System.out.print(costos.get(i));
-         // System.out.print(" ");
-     }
-      //System.out.println(" ");
-      
          if(validar()){
              log=new logico(arrayDem,proDem,diasEsp,probaEspe,diasEntregas,probEntregas,costos); 
           }else{
