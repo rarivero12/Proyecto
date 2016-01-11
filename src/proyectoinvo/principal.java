@@ -177,7 +177,8 @@ String[] columnNames = {"Dia", "Inv Ini.", "No. Aleatorio",
      
      Object[][] tabla2;
      Integer tabla[][];
-  
+     String auxTo;
+     
      tabla2=new Object[aux2.size()][6];
      tabla=new Integer[diasSimulacion][12];
     
@@ -189,9 +190,9 @@ String[] columnNames = {"Dia", "Inv Ini.", "No. Aleatorio",
      tab=tabla;
       for(int i=0;i<aux2.size();i++){
          for(int j=0;j<6;j++){
-             tabla2[i][j]=aux2.get(i).get(j);
+                 tabla2[i][j]=aux2.get(i).get(j);
+             }
          }
-     }
      
          
       tablaRes = new JTable(tabla2,columnNames2);
@@ -204,10 +205,14 @@ String[] columnNames = {"Dia", "Inv Ini.", "No. Aleatorio",
      
       jLabel3.setText(log.getMejorQ());
       jLabel9.setText(log.getMejorR());
-      jLabel10.setText(log.getMejorCostoInventario());
-      jLabel11.setText(log.getMejorCostoOrden());
-      jLabel12.setText(log.getMejorCostoFaltante());
-      jLabel13.setText(log.getMejorCosto());
+      String inven=log.getMejorCostoInventario();
+      jLabel10.setText(inven.substring(0,inven.indexOf(".")+2 ));
+      String orden=log.getMejorCostoOrden();
+      jLabel11.setText(orden.substring(0,orden.indexOf(".")+2 ));
+      String falta=log.getMejorCostoFaltante();
+      jLabel12.setText(falta.substring(0,falta.indexOf(".")+2 ));
+      String total=log.getMejorCosto();
+      jLabel13.setText(total.substring(0,total.indexOf(".")+2 ));
     }
     
          public boolean validar( ){ //Funcion que ve si los datos ingresados son los correctos
@@ -262,10 +267,14 @@ String[] columnNames = {"Dia", "Inv Ini.", "No. Aleatorio",
             documento.add(new Paragraph(" "));
             documento.add(new Paragraph("-Q: " + log.getMejorQ()));
             documento.add(new Paragraph("-R: " + log.getMejorR()));
-            documento.add(new Paragraph("-Costo Inventario: " + log.getMejorCostoInventario()));
-            documento.add(new Paragraph("-Costo de orden: " + log.getMejorCostoOrden()));
-            documento.add(new Paragraph("-Costo de Faltante: " + log.getMejorCostoFaltante()));
-            documento.add(new Paragraph("-Costo Total: " + log.getMejorCosto()));
+            String inen=log.getMejorCostoInventario();
+            documento.add(new Paragraph("-Costo Inventario: " + inen.substring(0, inen.indexOf(".")+2)));
+           String orden=log.getMejorCostoOrden();
+            documento.add(new Paragraph("-Costo de orden: " + orden.substring(0, orden.indexOf(".")+2)));
+           String faltante=log.getMejorCostoFaltante();
+            documento.add(new Paragraph("-Costo de Faltante: " + faltante.substring(0, faltante.indexOf(".")+2)));
+            String total=log.getMejorCosto();
+           documento.add(new Paragraph("-Costo Total: " + total.substring(0, total.indexOf(".")+2)));
             documento.add(new Paragraph("                                  "));
             PdfPTable tabla = new PdfPTable(12);
             
