@@ -40,7 +40,6 @@ public class logico {
    public logico(ArrayList<Integer> arrayDem, ArrayList<Integer> proDem, ArrayList<Integer> diasEsp, ArrayList<Integer> probaEspe, ArrayList<Integer> diasEntregas, ArrayList<Integer> probEntregas, ArrayList<Double> costos, int dias) {
       
        arrayResult = new ArrayList();
-       elMejor=0;
        acumDemanda= new ArrayList();
        acumEspera=new ArrayList();
        acumEntrega=new ArrayList();
@@ -62,6 +61,7 @@ public class logico {
         FcE=arrayCostos.get(3); 
         FsE=arrayCostos.get(4);
         annio=dias;
+        contResultados=-1;
         
         menor=calMenor(arrayDem);
         mayor=calMayor(arrayDem);
@@ -72,7 +72,7 @@ public class logico {
         calcularQyR(); // Calculo q y r
         funcionAcumulada(); // Calculo el acumulado de todas las probabilidades
         empezar(); // Empiezo la simulacion
-        
+      
    }
    
     public int calMenor(ArrayList<Integer> array){
@@ -116,8 +116,8 @@ public class logico {
        Double qMenoraux=Math.sqrt(  ((2*cOrden*menor*365*(cInv+FsE))/(cInv*FsE))  );
        Double qMayoraux=Math.sqrt(  ((2*cOrden*mayor*365*(cInv+FcE))/(cInv*FcE))  );
        // Obtengo el valor entero
-       qMenor=qMenoraux.intValue();
-       qMayor=qMayoraux.intValue(); 
+      qMenor=qMenoraux.intValue();
+      qMayor=qMayoraux.intValue(); 
 
       // Se calculan las R.
        rMenor=lMenor*menor;
@@ -161,7 +161,7 @@ public class logico {
        // Variables Auxiliares utilizadas En esta funcion
        Random  rnd = new Random(100);
       
-       double costoInventario=0,costoOrden=0, costoFaltante=0,costoTotal=0;
+       Double costoInventario=0.0,costoOrden=0.0, costoFaltante=0.0,costoTotal=0.0;
        
        ArrayList resultados;
        ArrayList<Integer> faltante,tiempoEspera,dias;
@@ -171,7 +171,7 @@ public class logico {
        Integer q= i;
        Integer r= j;
        
-       int rn,rn1,rn2;
+       Double rn,rn1,rn2;
        int inv = this.invIni;
        int demanda,invFinal,tiempoEntrega=-1;
        int invPromedio=0,invPDiario=0;
@@ -224,7 +224,7 @@ public class logico {
           
         
            // Calculo la demanda
-           rn=(int)(rnd.nextDouble() * 100);
+           rn=(rnd.nextDouble() * 100);
           
            demanda=numAleatorio(rn  ,arrayDem,acumDemanda);
            // Inventario Final
@@ -235,8 +235,8 @@ public class logico {
                auxFaltante=demanda-inv;
                invFinal=0;
                faltante.add(auxFaltante);
-             rn1=(int)(rnd.nextDouble() * 100);
-              auxrn1=rn1;
+             rn1=(rnd.nextDouble() * 100);
+              auxrn1=rn1.intValue();
                auxEspera=numAleatorio(rn1,arrayEsp,acumEspera);
                auxtes=auxEspera;
                if(auxEspera==0){
@@ -260,8 +260,8 @@ public class logico {
            // Veo si puedo hacer un pedido
            if(tiempoEntrega<0){
                if( invFinal<=r ){
-              rn2=(int)(rnd.nextDouble() * 100);
-              auxrn2=rn2;
+              rn2=(rnd.nextDouble() * 100);
+              auxrn2=rn2.intValue();
               tiempoEntrega= numAleatorio(rn2,arrayEntre,acumEntrega);
               auxTE=tiempoEntrega;
               orden++;
@@ -277,7 +277,7 @@ public class logico {
           // Guardo los datos
            dias.add(dia);
            dias.add(inv);
-           dias.add(rn);
+           dias.add(rn.intValue());
            dias.add(demanda);
            dias.add(invFinal);
            dias.add(invPromedio);
@@ -318,13 +318,18 @@ public class logico {
            contResultados++;
            
            // Esto es para poder hacer la comparacion la primera vez
-           if(contResultados==1){
+           if(contResultados==0){
                tablaElmejor=tabla;
+               elMejor=0;
            }
            // Comparacion a ver si es mejor que el mejor
-            if( costoTotal <  Double.valueOf( (arrayResult.get(elMejor).get(5).toString()) )  ){
+          Double costoAnt= Double.valueOf( (arrayResult.get(elMejor).get(5).toString()) );
+          
+          
+            if( costoTotal <  costoAnt   ){
                elMejor=contResultados;
                tablaElmejor=tabla;
+           
            }
              
        
@@ -332,9 +337,9 @@ public class logico {
    
   // Metodo que recibe una numero aleatorio con dos arreglos de dist de probabilidad
   // Retorna el numero que se debe usar.
-   private int numAleatorio(int alea,ArrayList<Integer> numero, ArrayList<Integer> prob){
+   private int numAleatorio(Double alea,ArrayList<Integer> numero, ArrayList<Integer> prob){
        for(int i=0;i<prob.size();i++){
-           if(alea <= prob.get(i)){
+           if(alea <= Double.valueOf( prob.get(i)) ){
                return numero.get(i);
            }
        }

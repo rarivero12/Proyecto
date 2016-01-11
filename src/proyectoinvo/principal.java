@@ -168,10 +168,10 @@ int diasSimulacion;
      
      Object[][] tabla2;
      Integer tabla[][];
-     
+  
      tabla2=new Object[aux2.size()][6];
      tabla=new Integer[diasSimulacion][12];
-     
+    
      for(int i=0;i<diasSimulacion;i++){
          for(int j=0;j<12;j++){
              tabla[i][j]=aux.get(i).get(j);
