@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -282,7 +283,8 @@ String[] columnNames = {"Dia", "Inv Ini.", "No. Aleatorio",
                documento.add(tabla);
             
             documento.close();
-         }
+            JOptionPane.showMessageDialog(null, "Creado Correctamente, En la carpeta del proyecto");
+           }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
