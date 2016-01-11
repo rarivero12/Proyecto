@@ -6,6 +6,11 @@
  */
 package proyectoinvo;
  
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.ScrollPane;
 import java.io.*;
 import java.util.*;
@@ -28,6 +33,11 @@ ArrayList<Integer> arrayDem,proDem,diasEsp,probaEspe,diasEntregas,probEntregas;
 ArrayList<Double> costos ;
 JTable tablaMejor,tablaRes;
 int diasSimulacion;
+Integer tab[][];
+
+String[] columnNames = {"Dia", "Inv Ini.", "No. Aleatorio",
+      "Demanda", "Inv Final","inv Promedio", "Faltante", "No. Orden",
+      "No. Aleatorio", "Tiempo Entrega","No. Aleatorio", "Tiempo Espera"};
     /**
      * Creates new form principal
      */
@@ -156,9 +166,7 @@ int diasSimulacion;
     
     public void llenarTablas(){
         
-     String[] columnNames = {"Dia", "Inv Ini.", "No. Aleatorio",
-      "Demanda", "Inv Final","inv Promedio", "Faltante", "No. Orden",
-      "No. Aleatorio", "Tiempo Entrega","No. Aleatorio", "Tiempo Espera"};
+     
      
      String[] columnNames2 = {"Q", "R", "Costo Inventario","Costo Orden",
          "Costo Faltante","Costo Total"};
@@ -177,7 +185,7 @@ int diasSimulacion;
              tabla[i][j]=aux.get(i).get(j);
          }
      }
-     
+     tab=tabla;
       for(int i=0;i<aux2.size();i++){
          for(int j=0;j<6;j++){
              tabla2[i][j]=aux2.get(i).get(j);
@@ -233,6 +241,48 @@ int diasSimulacion;
              } 
              return true;
          }
+         
+        public void generarPdf() throws FileNotFoundException, DocumentException{
+             // Se crea el documento
+           Document documento = new Document();
+ 
+              // Se crea el OutputStream para el fichero donde queremos dejar el pdf.
+              int ind=jLabel16.getText().lastIndexOf(".");
+              System.out.println(ind);
+           FileOutputStream ficheroPdf = new FileOutputStream("Archivo "+jLabel16.getText().substring(0, ind)+".pdf");
+ 
+           // Se asocia el documento al OutputStream y se indica que el espaciado entre
+            // lineas sera de 20. Esta llamada debe hacerse antes de abrir el documento
+            PdfWriter.getInstance(documento,ficheroPdf).setInitialLeading(20);
+ 
+            // Se abre el documento.
+            documento.open();
+            documento.add(new Paragraph("                             Mejor opcion del archivo: " + jLabel16.getText()));
+            documento.add(new Paragraph(" "));
+            documento.add(new Paragraph("-Q: " + log.getMejorQ()));
+            documento.add(new Paragraph("-R: " + log.getMejorR()));
+            documento.add(new Paragraph("-Costo Inventario: " + log.getMejorCostoInventario()));
+            documento.add(new Paragraph("-Costo de orden: " + log.getMejorCostoOrden()));
+            documento.add(new Paragraph("-Costo de Faltante: " + log.getMejorCostoFaltante()));
+            documento.add(new Paragraph("-Costo Total: " + log.getMejorCosto()));
+            documento.add(new Paragraph("                                  "));
+            PdfPTable tabla = new PdfPTable(12);
+            
+           
+            for (int i = 0; i < 12; i++)
+               {
+                   tabla.addCell(columnNames[i]);
+               }
+            for(int i=0;i<diasSimulacion;i++){
+                   for(int j=0;j<12;j++){
+                  tabla.addCell(""+tab[i][j] );
+               }
+            }
+             
+               documento.add(tabla);
+            
+            documento.close();
+         }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -263,6 +313,7 @@ int diasSimulacion;
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jToggleButton2 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulacion de Inventario");
@@ -296,6 +347,13 @@ int diasSimulacion;
         });
 
         jLabel15.setText("Archivo:");
+
+        jToggleButton2.setText("PDF");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -338,7 +396,10 @@ int diasSimulacion;
                                         .addComponent(jLabel15)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel16))
-                                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2)
@@ -346,7 +407,7 @@ int diasSimulacion;
                         .addComponent(jLabel3)
                         .addGap(38, 38, 38)
                         .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -387,7 +448,8 @@ int diasSimulacion;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(jToggleButton1)))
+                            .addComponent(jToggleButton1)
+                            .addComponent(jToggleButton2)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -428,6 +490,16 @@ int diasSimulacion;
     }
      
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+    try {
+        generarPdf();
+    } catch (FileNotFoundException ex) {
+        Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (DocumentException ex) {
+        Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -486,5 +558,6 @@ int diasSimulacion;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
 }
